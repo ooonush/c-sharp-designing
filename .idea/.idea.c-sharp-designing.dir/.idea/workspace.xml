@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9c4c24ef-bdea-4424-90be-be05e5715774" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/photoshop/.idea/.idea.Photoshop/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/photoshop/.idea/.idea.Photoshop/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/photoshop/.idea/.idea.Photoshop/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/photoshop/.idea/.idea.Photoshop/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photoshop/Data/Convertors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/photoshop/Data/Convertors.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photoshop/Data/Photo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/photoshop/Data/Photo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photoshop/Filters/LighteningFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/photoshop/Filters/LighteningFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photoshop/Photoshop.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/photoshop/Photoshop.csproj" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="2FJ9cUZVHr5XUdwLFl6CaKyhKtn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9c4c24ef-bdea-4424-90be-be05e5715774" name="Changes" comment="" />
+      <created>1664199398756</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664199398756</updated>
+      <workItem from="1664199400730" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
