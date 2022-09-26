@@ -1,0 +1,12 @@
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\ReportMaker.cs
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\Incapsulation.Failures.exe.config
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\Incapsulation.Failures.exe
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\Incapsulation.Failures.pdb
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.csproj.AssemblyReference.cache
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.csproj.CopyComplete
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.exe
+C:\Projects\GitHub\c-sharp-designing\incapsulations-failurs\obj\Debug\Incapsulation.Failures.pdb
