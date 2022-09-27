@@ -23,7 +23,7 @@ namespace Incapsulation.Weights
             var indexer = new Indexer(range1to4, 1, 2);
             Assert.AreEqual(value, indexer[index]);
         }
-
+        
         [TestCase(0)]
         [TestCase(1)]
         public void SetCorrectly(int index)
