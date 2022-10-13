@@ -1,9 +1,7 @@
 namespace MyPhotoshop
 {
-	public class LighteningFilter : PixelFilter
+	public class LighteningFilter : PixelFilter<LighteningParameters>
 	{
-		public LighteningFilter() : base(new LighteningParameters()) { }
-		
 		public override string ToString ()
 		{
 			return "Осветление/затемнение";
@@ -14,9 +12,9 @@ namespace MyPhotoshop
 			return pixel * parameters[0];
 		}
 		
-		public override Pixel ProcessPixel(Pixel pixel, IParameters parameters)
+		public override Pixel ProcessPixel(Pixel pixel, LighteningParameters parameters)
 		{
-			return pixel * ((LighteningParameters)parameters).Coefficient;
+			return pixel * parameters.Coefficient;
 		}
 	}
 }
