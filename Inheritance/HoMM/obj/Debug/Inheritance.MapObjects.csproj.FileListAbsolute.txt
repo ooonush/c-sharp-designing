@@ -1,0 +1,11 @@
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\bin\Debug\Inheritance.MapObjects.exe.config
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\bin\Debug\Inheritance.MapObjects.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\bin\Debug\Inheritance.MapObjects.pdb
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.csproj.AssemblyReference.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.csproj.CopyComplete
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\HoMM\obj\Debug\Inheritance.MapObjects.pdb
