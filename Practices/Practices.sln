@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inheritance.Geometry", "Inh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inheritance.MapObjects", "Inheritance\HoMM\Inheritance.MapObjects.csproj", "{036E786D-084D-4978-AE5F-B28A1DDCEB25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics.BinaryTrees", "Generics\BinaryTree\Generics.BinaryTrees.csproj", "{59039D80-8666-4CB5-9B27-1D23220C8E4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{036E786D-084D-4978-AE5F-B28A1DDCEB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036E786D-084D-4978-AE5F-B28A1DDCEB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{036E786D-084D-4978-AE5F-B28A1DDCEB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59039D80-8666-4CB5-9B27-1D23220C8E4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59039D80-8666-4CB5-9B27-1D23220C8E4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59039D80-8666-4CB5-9B27-1D23220C8E4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59039D80-8666-4CB5-9B27-1D23220C8E4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

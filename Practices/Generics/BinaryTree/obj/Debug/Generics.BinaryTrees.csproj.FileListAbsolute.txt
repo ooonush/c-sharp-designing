@@ -1,0 +1,11 @@
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\bin\Debug\Generics.BinaryTree.exe.config
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\bin\Debug\Generics.BinaryTree.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\bin\Debug\Generics.BinaryTree.pdb
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTrees.csproj.AssemblyReference.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTrees.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTrees.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTrees.csproj.CopyComplete
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTree.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\BinaryTree\obj\Debug\Generics.BinaryTree.pdb
