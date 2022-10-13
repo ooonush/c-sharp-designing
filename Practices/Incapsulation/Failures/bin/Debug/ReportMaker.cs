@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Incapsulation.Failures
 {
@@ -13,8 +14,10 @@ namespace Incapsulation.Failures
 
     public class Device
     {
+        public readonly List<Failure> Failures = new List<Failure>();
         public readonly string Name;
         public readonly int Id;
+        
         
         public Device(int id, string name)
         {
@@ -26,14 +29,12 @@ namespace Incapsulation.Failures
     public class Failure
     {
         public readonly FailureType Type;
-        public readonly Device Device;
         public readonly DateTime Date;
         public bool IsSerious => Type == FailureType.UnexpectedShutdown || Type == FailureType.HardwareFailures;
         
-        public Failure(FailureType type, Device device, DateTime date)
+        public Failure(FailureType type, DateTime date)
         {
             Type = type;
-            Device = device;
             Date = date;
         }
     }
@@ -41,15 +42,18 @@ namespace Incapsulation.Failures
     
     public class ReportMaker
     {
-        public static List<string> FindDevicesFailedBeforeDate(DateTime targetDate, IEnumerable<Failure> failures)
+        public static List<string> FindDevicesFailedBeforeDate(DateTime targetDate, IEnumerable<Device> devices)
         {
             var result = new List<string>();
             
-            foreach (Failure failure in failures)
+            foreach (Device device in devices)
             {
-                if (failure.IsSerious && failure.Date < targetDate)
+                foreach (Failure failure in device.Failures)
                 {
-                    result.Add(failure.Device.Name);
+                    if (failure.IsSerious && failure.Date < targetDate)
+                    {
+                        result.Add(device.Name);
+                    }
                 }
             }
             
@@ -63,7 +67,7 @@ namespace Incapsulation.Failures
         /// 2 for hardware failures, 
         /// 3 for connection problems
         /// </param>
-        /// <param name="deviceId"></param>
+        /// <param name="deviceIds"></param>
         /// <param name="times"></param>
         /// <param name="devices"></param>
         /// <returns></returns>
@@ -72,22 +76,33 @@ namespace Incapsulation.Failures
             int month,
             int year,
             int[] failureTypes, 
-            int[] deviceId, 
+            int[] deviceIds, 
             object[][] times,
             List<Dictionary<string, object>> devices)
         {
             var date = new DateTime(year, month, day);
-            var failures = new List<Failure>();
-            
-            for (var i = 0; i < devices.Count; i++)
+            var devicesById = new Dictionary<int, Device>();
+            for (var i = 0; i < failureTypes.Length; i++)
             {
                 var failureType = (FailureType)failureTypes[i];
                 var failuresDate = new DateTime((int)times[i][2], (int)times[i][1], (int)times[i][0]);
-                var device = new Device((int)devices[i]["DeviceId"], (string)devices[i]["Name"]); 
-                failures.Add(new Failure(failureType, device, failuresDate));
+                var failure = new Failure(failureType, failuresDate);
+                
+                int deviceId = deviceIds[i];
+                if (devicesById.TryGetValue(deviceId, out Device device))
+                {
+                    device.Failures.Add(failure);
+                }
+                else
+                {
+                    var deviceName = (string)devices[i]["Name"];
+                    device = new Device(deviceId, deviceName);
+                    device.Failures.Add(failure);
+                    devicesById.Add(deviceId, device);
+                }
             }
             
-            return FindDevicesFailedBeforeDate(date, failures);
+            return FindDevicesFailedBeforeDate(date, devicesById.Values);
         }
     }
 }
