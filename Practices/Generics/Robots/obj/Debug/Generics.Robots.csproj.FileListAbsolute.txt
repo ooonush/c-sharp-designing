@@ -1,0 +1,11 @@
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.csproj.AssemblyReference.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\bin\Debug\Generics.Robots.exe.config
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\bin\Debug\Generics.Robots.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\bin\Debug\Generics.Robots.pdb
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.csproj.CopyComplete
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Robots\obj\Debug\Generics.Robots.pdb
