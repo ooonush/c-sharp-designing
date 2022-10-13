@@ -1,0 +1,11 @@
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\bin\Debug\Generics.Table.exe.config
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\bin\Debug\Generics.Table.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\bin\Debug\Generics.Table.pdb
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Tables.csproj.AssemblyReference.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Tables.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Tables.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Tables.csproj.CopyComplete
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Table.exe
+C:\Projects\GitHub\My Projects\c-sharp-designing\Practices\Generics\Tables\obj\Debug\Generics.Table.pdb
