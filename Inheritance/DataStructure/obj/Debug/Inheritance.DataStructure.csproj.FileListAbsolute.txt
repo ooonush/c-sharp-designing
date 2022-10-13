@@ -1,0 +1,11 @@
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\bin\Debug\Inheritance.DataStructure.exe.config
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\bin\Debug\Inheritance.DataStructure.exe
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\bin\Debug\Inheritance.DataStructure.pdb
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\bin\Debug\nunit.framework.dll
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\bin\Debug\nunitlite.dll
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.csproj.AssemblyReference.cache
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.csproj.SuggestedBindingRedirects.cache
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.csproj.CoreCompileInputs.cache
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.csproj.CopyComplete
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.exe
+C:\Projects\GitHub\c-sharp-designing\Inheritance\DataStructure\obj\Debug\Inheritance.DataStructure.pdb

@@ -121,7 +121,7 @@ namespace Incapsulation.RationalNumbers
             double v = new Rational(numerator, denominator);
             Assert.AreEqual(expectedValue, v, 1e-7);
         }
-
+        
         [Test]
         public void ConvertFromInt()
         {
