@@ -23,8 +23,19 @@ namespace Inheritance.DataStructure
                 return 0;
             }
             
-            return (Product, MessageType, MessageTopic)
-                .CompareTo((other.Product, other.MessageType, other.MessageTopic));
+            int compareResult = string.Compare(Product, other.Product, StringComparison.InvariantCultureIgnoreCase);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+            
+            compareResult = MessageType.CompareTo(other.MessageType);
+            if (compareResult != 0)
+            {
+                return compareResult;
+            }
+            
+            return MessageTopic.CompareTo(other.MessageTopic);
         }
         
         public override string ToString()
@@ -34,7 +45,14 @@ namespace Inheritance.DataStructure
         
         public override bool Equals(object obj)
         {
-            return obj != null && GetHashCode() == obj.GetHashCode();
+            if (!(obj is Category other))
+            {
+                return false;
+            }
+            
+            return Product == other.Product
+                && MessageType == other.MessageType
+                && MessageTopic == other.MessageTopic;
         }
         
         public override int GetHashCode()
