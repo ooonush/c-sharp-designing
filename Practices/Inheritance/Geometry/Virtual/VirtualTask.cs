@@ -4,6 +4,115 @@ using System.Linq;
 
 namespace Inheritance.Geometry.Virtual
 {
+    public class CompoundBody : Body
+    {
+        public IReadOnlyList<Body> Parts { get; }
+
+        public CompoundBody(IReadOnlyList<Body> parts) : base(parts[0].Position)
+        {
+            Parts = parts;
+        }
+
+        public override bool ContainsPoint(Vector3 point)
+        {
+            return Parts.Any(body => body.ContainsPoint(point));
+        }
+
+        public override RectangularCuboid GetBoundingBox()
+        {
+            Bounds bounds = GetBounds();
+
+            double sizeX = bounds.Max.X - bounds.Min.X;
+            double sizeY = bounds.Max.Y - bounds.Min.Y;
+            double sizeZ = bounds.Max.Z - bounds.Min.Z;
+
+            return new RectangularCuboid(bounds.GetCenter(), sizeX, sizeY, sizeZ);
+        }
+
+        private Bounds GetBounds()
+        {
+            var minBound = new Vector3(double.MaxValue, double.MaxValue, double.MaxValue);
+            var maxBound = new Vector3(double.MinValue, double.MinValue, double.MinValue);
+
+            foreach (Body part in Parts)
+            {
+                RectangularCuboid boundingBox = part.GetBoundingBox();
+                Vector3 currentMax = boundingBox.Bounds.Max;
+                maxBound = new Vector3(
+                    Math.Max(currentMax.X, maxBound.X),
+                    Math.Max(currentMax.Y, maxBound.Y),
+                    Math.Max(currentMax.Z, maxBound.Z));
+
+                Vector3 currentMin = boundingBox.Bounds.Min;
+                minBound = new Vector3(
+                    Math.Min(currentMin.X, minBound.X),
+                    Math.Min(currentMin.Y, minBound.Y),
+                    Math.Min(currentMin.Z, minBound.Z));
+            }
+
+            return new Bounds(minBound, maxBound);
+        }
+    }
+
+    public readonly struct Bounds
+    {
+        public readonly Vector3 Min;
+        public readonly Vector3 Max;
+
+        public Bounds(Vector3 min, Vector3 max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public Vector3 GetCenter()
+        {
+            Vector3 difference = Max - Min;
+            difference = new Vector3(difference.X / 2, difference.Y / 2, difference.Z / 2);
+            return Max - difference;
+        }
+    }
+
+    public class RectangularCuboid : Body
+    {
+        public readonly Bounds Bounds;
+
+        public readonly double SizeX;
+        public readonly double SizeY;
+        public readonly double SizeZ;
+        
+        public RectangularCuboid(Vector3 position, double sizeX, double sizeY, double sizeZ) : base(position)
+        {
+            SizeX = sizeX;
+            SizeY = sizeY;
+            SizeZ = sizeZ;
+            
+            var minBound = new Vector3(position.X - sizeX / 2, position.Y - sizeY / 2, position.Z - sizeZ / 2);
+            var maxBound = new Vector3(position.X + sizeX / 2, position.Y + sizeY / 2, position.Z + sizeZ / 2);
+            
+            Bounds = new Bounds(minBound, maxBound);
+        }
+
+        public override bool ContainsPoint(Vector3 point)
+        {
+            var minPoint = new Vector3(
+                Position.X - SizeX / 2,
+                Position.Y - SizeY / 2,
+                Position.Z - SizeZ / 2);
+            var maxPoint = new Vector3(
+                Position.X + SizeX / 2,
+                Position.Y + SizeY / 2,
+                Position.Z + SizeZ / 2);
+
+            return point >= minPoint && point <= maxPoint;
+        }
+
+        public override RectangularCuboid GetBoundingBox()
+        {
+            return this;
+        }
+    }
+
     public abstract class Body
     {
         public Vector3 Position { get; }
@@ -41,58 +150,6 @@ namespace Inheritance.Geometry.Virtual
         }
     }
 
-    public class RectangularCuboid : Body
-    {
-        public double SizeX { get; }
-        public double SizeY { get; }
-        public double SizeZ { get; }
-        public Vector3 MinBoundXYZ { get; }
-        public Vector3 MaxBoundXYZ { get; }
-        public RectangularCuboid(Vector3 position, double sizeX, double sizeY, double sizeZ) : base(position)
-        {
-            SizeX = sizeX;
-            SizeY = sizeY;
-            SizeZ = sizeZ;
-            MinBoundXYZ = new Vector3(position.X - SizeX / 2, position.Y - SizeY / 2, position.Z - SizeZ / 2);
-            MaxBoundXYZ = new Vector3(position.X + SizeX / 2, position.Y + SizeY / 2, position.Z + SizeZ / 2);
-        }
-
-        public RectangularCuboid(Vector3 minBound, Vector3 maxBound) : base(GetCenter(maxBound, maxBound))
-        {
-            MinBoundXYZ = minBound;
-            MaxBoundXYZ = minBound;
-            SizeX = maxBound.X - minBound.X;
-            SizeY = maxBound.Y - minBound.Y;
-            SizeZ = maxBound.Z - minBound.Z;
-        }
-
-        private static Vector3 GetCenter(Vector3 minBound, Vector3 maxBound)
-        {
-            Vector3 middle = maxBound - minBound;
-            middle = new Vector3(middle.X / 2, middle.Y / 2, middle.Z / 2);
-            return maxBound - middle;
-        }
-
-        public override bool ContainsPoint(Vector3 point)
-        {
-            var minPoint = new Vector3(
-                Position.X - SizeX / 2,
-                Position.Y - SizeY / 2,
-                Position.Z - SizeZ / 2);
-            var maxPoint = new Vector3(
-                Position.X + SizeX / 2,
-                Position.Y + SizeY / 2,
-                Position.Z + SizeZ / 2);
-
-            return point >= minPoint && point <= maxPoint;
-        }
-
-        public override RectangularCuboid GetBoundingBox()
-        {
-            return this;
-        }
-    }
-
     public class Cylinder : Body
     {
         public double SizeZ { get; }
@@ -120,89 +177,6 @@ namespace Inheritance.Geometry.Virtual
         {
             double diameter = Radius * 2;
             return new RectangularCuboid(Position, diameter, diameter, SizeZ);
-        }
-    }
-
-    public class CompoundBody : Body
-    {
-        public IReadOnlyList<Body> Parts { get; }
-
-        public CompoundBody(IReadOnlyList<Body> parts) : base(parts[0].Position)
-        {
-            Parts = parts;
-        }
-
-        public override bool ContainsPoint(Vector3 point)
-        {
-            return Parts.Any(body => body.ContainsPoint(point));
-        }
-
-        public override RectangularCuboid GetBoundingBox()
-        {
-            var boundingBoxes = GetBoundingBoxes();
-            Vector3 minBound = GetMinBound(boundingBoxes);
-            Vector3 maxBound = GetMaxBound(boundingBoxes);
-
-            return new RectangularCuboid(minBound, maxBound);
-        }
-
-        private static Vector3 GetMinBound(IEnumerable<RectangularCuboid> boundingBoxes)
-        {
-            var minX = double.MaxValue;
-            var minY = double.MaxValue;
-            var minZ = double.MaxValue;
-
-            foreach (RectangularCuboid box in boundingBoxes)
-            {
-                if (box.MinBoundXYZ.X < minX)
-                {
-                    minX = box.MinBoundXYZ.X;
-                }
-
-                if (box.MinBoundXYZ.Y < minY)
-                {
-                    minY = box.MinBoundXYZ.Y;
-                }
-
-                if (box.MinBoundXYZ.Z < minZ)
-                {
-                    minZ = box.MinBoundXYZ.Z;
-                }
-            }
-
-            return new Vector3(minX, minY, minZ);
-        }
-        
-        private static Vector3 GetMaxBound(IEnumerable<RectangularCuboid> boundingBoxes)
-        {
-            var maxX = double.MinValue;
-            var maxY = double.MinValue;
-            var maxZ = double.MinValue;
-
-            foreach (RectangularCuboid box in boundingBoxes)
-            {
-                if (box.MinBoundXYZ.X > maxX)
-                {
-                    maxX = box.MinBoundXYZ.X;
-                }
-
-                if (box.MinBoundXYZ.Y > maxY)
-                {
-                    maxY = box.MinBoundXYZ.Y;
-                }
-
-                if (box.MinBoundXYZ.Z > maxZ)
-                {
-                    maxZ = box.MinBoundXYZ.Z;
-                }
-            }
-
-            return new Vector3(maxX, maxY, maxZ);
-        }
-
-        private RectangularCuboid[] GetBoundingBoxes()
-        {
-            return Parts.Select(p => p.GetBoundingBox()).ToArray();
         }
     }
 }
