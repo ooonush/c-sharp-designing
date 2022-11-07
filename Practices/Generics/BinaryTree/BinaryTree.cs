@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Generics.BinaryTrees
 {
@@ -20,50 +19,46 @@ namespace Generics.BinaryTrees
     
     public class BinaryTree<T> : IEnumerable<T> where T : struct, IComparable<T>
     {
-        public T Value
-        {
-            get
-            {
-                Debug.Assert(_value != null, nameof(_value) + " != null");
-                return _value.Value;
-            }
-        }
-
-        public BinaryTree<T> Left => _left;
-        public BinaryTree<T> Right => _right;
-        
-        private T? _value;
-        private BinaryTree<T> _right;
-        private BinaryTree<T> _left;
-
-        public BinaryTree(T value)
-        {
-            _value = value;
-        }
-
-        public BinaryTree()
-        {
-            
-        }
+        public T? Value { get; private set; }
+        public BinaryTree<T> Left { get; private set; }
+        public BinaryTree<T> Right { get; private set; }
 
         public void Add(T value)
         {
-            if (_value == null)
+            if (Value == null)
             {
-                _value = value;
+                Value = value;
                 return;
             }
             
-            if (value.CompareTo(Value) <= 0)
+            if (value.CompareTo(Value.Value) <= 0)
             {
-                AddTreeValue(ref _left, value);
+                AddToLeft(value);
             }
             else
             {
-                AddTreeValue(ref _right, value);
+                AddToRight(value);
             }
         }
 
+        private void AddToLeft(T value)
+        {
+            if (Left == null)
+            {
+                Left = new BinaryTree<T>();
+            }
+            Left.Add(value);
+        }
+        
+        private void AddToRight(T value)
+        {
+            if (Right == null)
+            {
+                Right = new BinaryTree<T>();
+            }
+            Right.Add(value);
+        }
+        
         public IEnumerator<T> GetEnumerator()
         {
             if (Left != null)
@@ -74,12 +69,12 @@ namespace Generics.BinaryTrees
                 }
             }
 
-            if (_value == null)
+            if (Value == null)
             {
                 yield break;
             }
 
-            yield return Value;
+            yield return Value.Value;
 
             if (Right == null)
             {
@@ -94,18 +89,6 @@ namespace Generics.BinaryTrees
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        private static void AddTreeValue(ref BinaryTree<T> tree, T value)
-        {
-            if (tree == null)
-            {
-                tree = new BinaryTree<T>(value);
-            }
-            else
-            {
-                tree.Add(value);
-            }
         }
     }
 }
