@@ -2,6 +2,13 @@ namespace MyPhotoshop;
 
 public abstract class ParametrizedFilter<TParameters> : IFilter where TParameters : IParameters, new()
 {
+    private readonly string _name;
+
+    protected ParametrizedFilter(string name)
+    {
+        _name = name;
+    }
+
     public ParameterInfo[] GetParameters()
     {
         return new TParameters().GetDescription();
@@ -15,4 +22,9 @@ public abstract class ParametrizedFilter<TParameters> : IFilter where TParameter
     }
     
     public abstract Photo Process(Photo original, TParameters parameters);
+
+    public override string ToString()
+    {
+        return _name;
+    }
 }

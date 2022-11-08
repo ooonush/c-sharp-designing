@@ -2,8 +2,6 @@ using System;
 
 namespace MyPhotoshop
 {
-
-	
 	public interface IFilter
 	{
         /// <summary>

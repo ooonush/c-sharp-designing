@@ -41,12 +41,16 @@
   <ItemGroup>
     <Compile Include="Data\Pixel.cs" />
     <Compile Include="Filters\EmptyParameters.cs" />
-    <Compile Include="Filters\GrayscaleFilter.cs" />
+    <Compile Include="Filters\FreeTransformer.cs" />
     <Compile Include="Filters\IParameters.cs" />
+    <Compile Include="Filters\ITransformer.cs" />
     <Compile Include="Filters\LighteningParameters.cs" />
     <Compile Include="Filters\ParameterInfo.cs" />
     <Compile Include="Filters\ParametrizedFilter.cs" />
     <Compile Include="Filters\PixelFilter.cs" />
+    <Compile Include="Filters\RotateTransformer.cs" />
+    <Compile Include="Filters\RotationParameters.cs" />
+    <Compile Include="Filters\TransformFilter.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Window\MainWindow.cs">
       <SubType>Form</SubType>
@@ -54,7 +58,6 @@
     <Compile Include="Data\Photo.cs" />
     <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Data\Convertors.cs" />
-    <Compile Include="Filters\LighteningFilter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
