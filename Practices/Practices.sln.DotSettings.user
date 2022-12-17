@@ -3,5 +3,8 @@
   &lt;Or&gt;&#xD;
     &lt;ProjectFile&gt;4DABFC2F-503E-4338-820B-40F67467B7E6/f:Architecture_Should.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;50951D62-9A5A-4997-8FCA-6EBF8B7D9610/f:Generator_should.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;175F7F7A-1CD9-4F99-9BDD-6D08FFAEEFD4/d:Infrastructure/f:ValueType_Tests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;175F7F7A-1CD9-4F99-9BDD-6D08FFAEEFD4/d:Infrastructure/f:ValueType_PerformanceTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;175F7F7A-1CD9-4F99-9BDD-6D08FFAEEFD4/d:Domain/f:TaxiOrder_Should.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

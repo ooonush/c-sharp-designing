@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using System.Collections.Generic;
 using System.Linq;
+using Ddd.Infrastructure;
 
 namespace Ddd.Taxi.Domain
 {
@@ -9,102 +9,172 @@ namespace Ddd.Taxi.Domain
 	// But in this exercise it is just a mock to simulate database
 	public class DriversRepository
 	{
-		public void FillDriverToOrder(int driverId, TaxiOrder order)
+		public Driver GetDriverById(int driverId)
 		{
-			if (driverId == 15)
+			switch (driverId)
 			{
-				order.DriverId = driverId;
-				order.DriverFirstName = "Drive";
-				order.DriverLastName = "Driverson";
-				order.CarModel = "Lada sedan";
-				order.CarColor = "Baklazhan";
-				order.CarPlateNumber = "A123BT 66";
+				case 15:
+				{
+					var personName = new PersonName("Drive", "Driverson");
+					var car = new Car("Lada sedan", "Baklazhan", "A123BT 66");
+					return new Driver(driverId, personName, car);
+				}
+				default:
+					throw new Exception("Unknown driver id " + driverId);
 			}
-			else
-				throw new Exception("Unknown driver id " + driverId);
 		}
 	}
 
 	public class TaxiApi : ITaxiApi<TaxiOrder>
 	{
-		private readonly DriversRepository driversRepo;
-		private readonly Func<DateTime> currentTime;
-		private int idCounter;
+		private readonly DriversRepository _driversRepo;
+		private readonly Func<DateTime> _currentTime;
+		private int _idCounter;
 
 		public TaxiApi(DriversRepository driversRepo, Func<DateTime> currentTime)
 		{
-			this.driversRepo = driversRepo;
-			this.currentTime = currentTime;
+			_driversRepo = driversRepo;
+			_currentTime = currentTime;
 		}
 
 		public TaxiOrder CreateOrderWithoutDestination(string firstName, string lastName, string street, string building)
 		{
-			return
-				new TaxiOrder
-				{
-					Id = idCounter++,
-					ClientFirstName = firstName,
-					ClientLastName = lastName,
-					StartStreet = street,
-					StartBuilding = building,
-					CreationTime = currentTime()
-				};
+			var clientName = new PersonName(firstName, lastName);
+			var startAddress = new Address(street, building);
+			return new TaxiOrder(_idCounter++, clientName, startAddress, _currentTime());
 		}
 
-		public void UpdateDestination(TaxiOrder order, string street, string building)
+		public void UpdateDestination(TaxiOrder order, string street, string building) 
+			=> order.UpdateDestination(new Address(street, building));
+
+		public void AssignDriver(TaxiOrder order, int driverId) 
+			=> order.AssignDriver(_driversRepo.GetDriverById(driverId), _currentTime());
+
+		public void UnassignDriver(TaxiOrder order) => order.UnassignDriver();
+
+		public string GetDriverFullInfo(TaxiOrder order) => order.GetDriverFullInfo();
+
+		public string GetShortOrderInfo(TaxiOrder order) => order.GetShortOrderInfo();
+		
+		public void Cancel(TaxiOrder order) => order.Cancel(_currentTime());
+
+		public void StartRide(TaxiOrder order) => order.StartRide(_currentTime());
+
+		public void FinishRide(TaxiOrder order) => order.FinishRide(_currentTime());
+	}
+
+	public class TaxiOrder : Entity<int>
+	{
+		public PersonName ClientName { get; private set; }
+		public Address Start { get; private set; }
+		public Address Destination { get; private set; }
+		public Driver Driver { get; private set; }
+		public TaxiOrderStatus Status { get; private set; }
+		public DateTime CreationTime { get; private set; }
+		public DateTime DriverAssignmentTime { get; private set; }
+		public DateTime CancelTime { get; private set; }
+		public DateTime StartRideTime { get; private set; }
+		public DateTime FinishRideTime { get; private set; }
+		
+		public TaxiOrder(int id, PersonName clientName, Address start, DateTime creationTime) : base(id)
 		{
-			order.DestinationStreet = street;
-			order.DestinationBuilding = building;
+			ClientName = clientName;
+			Start = start;
+			CreationTime = creationTime;
 		}
 
-		public void AssignDriver(TaxiOrder order, int driverId)
+		public void UpdateDestination(Address destinationAddress)
 		{
-			driversRepo.FillDriverToOrder(driverId, order);
-			order.DriverAssignmentTime = currentTime();
-			order.Status = TaxiOrderStatus.WaitingCarArrival;
+			Destination = destinationAddress;
 		}
 
-		public void UnassignDriver(TaxiOrder order)
+		public void AssignDriver(Driver driver, DateTime assignmentTime)
 		{
-			order.DriverFirstName = null;
-			order.DriverLastName = null;
-			order.CarModel = null;
-			order.CarColor = null;
-			order.CarPlateNumber = null;
-			order.Status = TaxiOrderStatus.WaitingForDriver;
+			if (!Driver.NullOrEmpty(Driver))
+				throw new InvalidOperationException("Driver allredy assigned");
+
+			Driver = driver;
+			DriverAssignmentTime = assignmentTime;
+			Status = TaxiOrderStatus.WaitingCarArrival;
 		}
 
-		public string GetDriverFullInfo(TaxiOrder order)
+		public void UnassignDriver()
 		{
-			if (order.Status == TaxiOrderStatus.WaitingForDriver) return null;
+			if (Status != TaxiOrderStatus.WaitingCarArrival)
+				throw new InvalidOperationException("WaitingForDriver");
+
+			Driver = Driver.Empty;
+			Status = TaxiOrderStatus.WaitingForDriver;
+		}
+
+		public string GetDriverFullInfo()
+		{
+			if (Status == TaxiOrderStatus.WaitingForDriver) return null;
 			return string.Join(" ",
-				"Id: " + order.DriverId,
-				"DriverName: " + FormatName(order.DriverFirstName, order.DriverLastName),
-				"Color: " + order.CarColor,
-				"CarModel: " + order.CarModel,
-				"PlateNumber: " + order.CarPlateNumber);
+				"Id: " + Driver.Id,
+				"DriverName: " + FormatName(Driver.PersonName.FirstName, Driver.PersonName.LastName),
+				"Color: " + Driver.Car.Color,
+				"CarModel: " + Driver.Car.Model,
+				"PlateNumber: " + Driver.Car.PlateNumber);
 		}
-
-		public string GetShortOrderInfo(TaxiOrder order)
+		
+		public string GetShortOrderInfo()
 		{
 			return string.Join(" ",
-				"OrderId: " + order.Id,
-				"Status: " + order.Status,
-				"Client: " + FormatName(order.ClientFirstName, order.ClientLastName),
-				"Driver: " + FormatName(order.DriverFirstName, order.DriverLastName),
-				"From: " + FormatAddress(order.StartStreet, order.StartBuilding),
-				"To: " + FormatAddress(order.DestinationStreet, order.DestinationBuilding),
-				"LastProgressTime: " + GetLastProgressTime(order).ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+				"OrderId: " + Id,
+				"Status: " + Status,
+				"Client: " + FormatName(ClientName?.FirstName, ClientName?.LastName),
+				"Driver: " + FormatName(Driver?.PersonName?.FirstName, Driver?.PersonName?.LastName),
+				"From: " + FormatAddress(Start?.Street, Start?.Building),
+				"To: " + FormatAddress(Destination?.Street, Destination?.Building),
+				"LastProgressTime: " + GetLastProgressTime()
+					.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
 		}
 
-		private DateTime GetLastProgressTime(TaxiOrder order)
+		public DateTime GetLastProgressTime()
 		{
-			if (order.Status == TaxiOrderStatus.WaitingForDriver) return order.CreationTime;
-			if (order.Status == TaxiOrderStatus.WaitingCarArrival) return order.DriverAssignmentTime;
-			if (order.Status == TaxiOrderStatus.InProgress) return order.StartRideTime;
-			if (order.Status == TaxiOrderStatus.Finished) return order.FinishRideTime;
-			if (order.Status == TaxiOrderStatus.Canceled) return order.CancelTime;
-			throw new NotSupportedException(order.Status.ToString());
+			switch (Status)
+			{
+				case TaxiOrderStatus.WaitingForDriver:
+					return CreationTime;
+				case TaxiOrderStatus.WaitingCarArrival:
+					return DriverAssignmentTime;
+				case TaxiOrderStatus.InProgress:
+					return StartRideTime;
+				case TaxiOrderStatus.Finished:
+					return FinishRideTime;
+				case TaxiOrderStatus.Canceled:
+					return CancelTime;
+				default:
+					throw new NotSupportedException(Status.ToString());
+			}
+		}
+
+		public void Cancel(DateTime cancelTime)
+		{
+			if (Status != TaxiOrderStatus.WaitingForDriver) 
+				throw new InvalidOperationException("Can't cancel ride an order that without waiting for driver");
+			
+			Status = TaxiOrderStatus.Canceled;
+			CancelTime = cancelTime;
+		}
+
+		public void StartRide(DateTime startTime)
+		{
+			if (Status != TaxiOrderStatus.WaitingCarArrival) 
+				throw new InvalidOperationException("Can't start ride an order that without waiting car arrival");
+
+			Status = TaxiOrderStatus.InProgress;
+			StartRideTime = startTime;
+		}
+
+		public void FinishRide(DateTime finishTime)
+		{
+			if (Status != TaxiOrderStatus.InProgress) 
+				throw new InvalidOperationException("Can't finish an order that is not started");
+
+			Status = TaxiOrderStatus.Finished;
+			FinishRideTime = finishTime;
 		}
 
 		private string FormatName(string firstName, string lastName)
@@ -116,46 +186,40 @@ namespace Ddd.Taxi.Domain
 		{
 			return string.Join(" ", new[] { street, building }.Where(n => n != null));
 		}
-
-		public void Cancel(TaxiOrder order)
-		{
-			order.Status = TaxiOrderStatus.Canceled;
-			order.CancelTime = currentTime();
-		}
-
-		public void StartRide(TaxiOrder order)
-		{
-			order.Status = TaxiOrderStatus.InProgress;
-			order.StartRideTime = currentTime();
-		}
-
-		public void FinishRide(TaxiOrder order)
-		{
-			order.Status = TaxiOrderStatus.Finished;
-			order.FinishRideTime = currentTime();
-		}
 	}
 
-	public class TaxiOrder
+	public class Car : ValueType<Car>
 	{
-		public int Id;
-		public string ClientFirstName;
-		public string ClientLastName;
-		public string StartStreet;
-		public string StartBuilding;
-		public string DestinationStreet;
-		public string DestinationBuilding;
-		public int DriverId;
-		public string DriverFirstName;
-		public string DriverLastName;
-		public string CarColor;
-		public string CarModel;
-		public string CarPlateNumber;
-		public TaxiOrderStatus Status;
-		public DateTime CreationTime;
-		public DateTime DriverAssignmentTime;
-		public DateTime CancelTime;
-		public DateTime StartRideTime;
-		public DateTime FinishRideTime;
+		public static readonly Car Empty = new Car(null, null, null);
+		
+		public readonly string Color;
+		public readonly string Model;
+		public readonly string PlateNumber;
+		
+		public Car(string model, string color, string plateNumber)
+		{
+			Color = color;
+			Model = model;
+			PlateNumber = plateNumber;
+		}
+	}
+	
+	public class Driver : Entity<int>
+	{
+		public static readonly Driver Empty = new Driver(-1, new PersonName(null, null), Car.Empty);
+		
+		public readonly PersonName PersonName;
+		public readonly Car Car;
+		
+		public Driver(int id, PersonName personName, Car car) : base(id)
+		{
+			PersonName = personName;
+			Car = car;
+		}
+		
+		public static bool NullOrEmpty(Driver driver)
+		{
+			return driver == null || driver.Equals(Empty);
+		}
 	}
 }
